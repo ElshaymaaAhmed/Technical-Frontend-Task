@@ -1,0 +1,40 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>{{ 'LOGIN' | translate }}</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="{{ 'ENTER YOUR EMAIL' | translate }}"
+          [class.is-invalid]="email?.invalid &&email?.touched" formControlName="email" type="email" class="form-control"
+          required>
+
+        <mat-error *ngIf="email?.invalid &&email?.touched" class="text-danger">
+          <small *ngIf="email?.errors?.['required']">{{ 'EMAIL' | translate }} {{ 'IS REQUIRED' | translate }}</small>
+          <small *ngIf="email?.errors?.['pattern']">{{ 'EMAIL' | translate }} {{ 'SHOULD BE' | translate }} {{ 'LIKE' |
+            translate }}
+            abc@example.com</small>
+        </mat-error>
+
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+
+        <input matInput placeholder="{{ 'ENTER YOUR PASSWORD' | translate }}" value="" type="password"
+          class="form-control" [class.is-invalid]="password?.invalid &&password?.touched" formControlName="password"
+          required>
+
+        <mat-error *ngIf="password?.touched &&password?.invalid" class="text-danger">
+          <small *ngIf="password?.errors?.['required']">{{ 'PASSWORD' | translate }} {{ 'IS REQUIRED' | translate
+            }}</small>
+          <small *ngIf="password?.errors?.['pattern']">{{ 'PASSWORD' | translate }} {{ 'MUST CONTAIN' | translate }} {{
+            'NUMBERS, UPPER, LOWER AND SPECIAL CHARACTERS' | translate }}</small>
+        </mat-error>
+
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">{{ 'LOGIN' | translate }}</button>
+    </form>
+
+  </mat-card>
+</div>

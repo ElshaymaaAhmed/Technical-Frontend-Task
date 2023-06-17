@@ -1,0 +1,16 @@
+.box {
+    opacity: 1;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid gray;
+    padding: 50px 30px 30px 50px;
+    max-width: 500px;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  mat-form-field {
+    margin-bottom: 10px;
+  }
+

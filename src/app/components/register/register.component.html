@@ -1,0 +1,60 @@
+<div class="register-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Register</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="RegistrationForm" (ngSubmit)="OnSubmit()"> <mat-card-content>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{ 'USERNAME' | translate }}"
+                        [class.is-invalid]="userName?.invalid &&userName?.touched" formControlName="userName"
+                        type="text" class="form-control" required>
+
+                    <mat-error *ngIf="userName?.invalid &&userName?.touched">
+                        <small *ngIf="userName?.errors?.['required']" class="text-danger">{{ 'USERNAME' | translate
+                            }} {{ 'IS REQUIRED' | translate }}</small>
+                        <small *ngIf="userName?.errors?.['minlength']" class="text-danger">{{ 'USERNAME' | translate
+                            }} {{ 'MUST BE' | translate }} {{ 'AT LEAST' | translate }} 3 {{ 'CHARACTERS' |
+                            translate }}</small>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{ 'EMAIL' | translate }}" type="email" class="form-control"
+                        formControlName="email" [class.is-invalid]="email?.touched &&email?.invalid" required>
+
+                    <mat-error *ngIf="email?.touched &&email?.invalid" class="text-danger">
+                        <small *ngIf="email?.errors?.['required']">{{ 'EMAIL' | translate }} {{ 'IS REQUIRED' |
+                            translate }}</small>
+                        <small *ngIf="RegistrationForm.errors?.['email']">{{ 'EMAIL' | translate }} {{ 'MUST BE' |
+                            translate }} {{ 'LIKE' | translate }} test@example.com</small>
+                        <small *ngIf="email?.errors?.['pattern']" class="text-danger">{{ 'EMAIL' | translate }} {{
+                            'MUST BE' | translate }} {{ 'LIKE' | translate }} test@example.com</small>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{ 'PASSWORD' | translate }}" formControlName="password"
+                        type="password" class="form-control">
+
+                    <mat-error *ngIf="password?.touched &&password?.invalid" class="text-danger">
+                        <small *ngIf="password?.errors?.['required']">{{ 'PASSWORD' | translate }} {{ 'IS REQUIRED'
+                            | translate }}</small>
+                        <small *ngIf="password?.errors?.['pattern']">{{ 'PASSWORD' | translate }} {{ 'MUST CONTAIN'
+                            | translate }} {{ 'NUMBERS, UPPER, LOWER AND SPECIAL CHARACTERS' | translate }}</small>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{ 'CONFIRM' | translate }} {{ 'PASSWORD' | translate }}"
+                        formControlName="confirmPassword" type="password" class="form-control">
+                        <small *ngIf="RegistrationForm.errors?.['misMatch']" class="text-danger">{{ 'THE PASSWORD AND CONFIRM PASSWORD DO NOT MATCH' | translate }}</small>
+
+                    
+                </mat-form-field>
+
+            </mat-card-content>
+            <button mat-raised-button color="primary" type="submit" class="btn-default">{{ 'REGISTER' | translate
+                }}</button>
+        </form>
+    </mat-card>
+</div>

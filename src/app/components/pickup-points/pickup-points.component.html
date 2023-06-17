@@ -1,0 +1,108 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+
+        <mat-card-header>
+            <mat-card-title>{{ 'PICKUP POINTS' | translate }}</mat-card-title>
+        </mat-card-header>
+
+        <form [formGroup]="PickupPointForm" (ngSubmit)="OnSubmit()">
+
+            <mat-form-field class="full-width-input">
+                <input matInput placeholder="{{ 'SHIPPER NAME' | translate }}"
+                    [class.is-invalid]="shipperName?.invalid &&shipperName?.touched" formControlName="shipperName"
+                    type="text" class="form-control" required>
+
+                <mat-error *ngIf="shipperName?.invalid &&shipperName?.touched" class="text-danger">
+                    <small *ngIf="shipperName?.errors?.['required']">{{ 'NAME' | translate
+                        }} {{ 'IS REQUIRED' | translate }}</small>
+                    <small *ngIf="shipperName?.errors?.['minlength']">{{ 'NAME' | translate
+                        }} {{ 'MUST BE' | translate }} {{ 'AT LEAST' | translate }} 3
+                        {{ 'CHARACTERS' | translate }}</small>
+                    <small *ngIf="shipperName?.errors?.['maxlength']">{{ 'NAME' | translate
+                        }} {{ 'MUST BE' | translate }} {{ 'LESS THAN' | translate }} 30
+                        {{ 'CHARACTERS' | translate }}</small>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input matInput placeholder="{{ 'SHIPPER PHONE NUMBER' | translate }}" type="text" class="form-control"
+                    formControlName="shipperPhone" [class.is-invalid]="shipperPhone?.touched &&shipperPhone?.invalid"
+                    required>
+
+                <mat-error *ngIf="shipperPhone?.touched &&shipperPhone?.invalid" class="text-danger">
+                    <small *ngIf="shipperPhone?.errors?.['required']">{{ 'PHONE NUMBER' | translate }}
+                        {{ 'IS REQUIRED' | translate }}</small>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'COMODATIONS' | translate }}</mat-label>
+                <mat-select class="form-control" formControlName="commodities"
+                    [class.is-invalid]="commodities?.touched &&commodities?.invalid">
+                    <mat-option selected [value]="product" *ngFor="let product of ComodationsList; let i = index">
+                        {{product | translate}} {{i}}
+                    </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="commodities?.touched &&commodities?.invalid" class="text-danger">
+                    <small *ngIf="commodities?.errors?.['required']">{{ 'COMODATIONS' | translate }} {{ 'IS REQUIRED' |
+                        translate }}</small>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="{{'CHOOSE A DATE' | translate}}"
+                    class="form-control" formControlName="pickupDate"
+                    [class.is-invalid]="pickupDate?.touched &&pickupDate?.invalid">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+
+                <mat-error *ngIf="pickupDate?.touched &&pickupDate?.invalid" class="text-danger">
+                    <small *ngIf="pickupDate?.errors?.['required']">{{ 'PICKUP DATE' | translate }} {{ 'IS REQUIRED' |
+                        translate }}</small>
+                </mat-error>
+            </mat-form-field>
+
+            <div formGroupName="pickupAddress">
+
+                <mat-form-field>
+                    <mat-label>{{ 'CITY' | translate }}</mat-label>
+                    <mat-select class="form-control" formControlName="city">
+                        <mat-option selected [value]="city" *ngFor="let city of CitiesList">
+                            {{city | translate}}
+                        </mat-option>
+                    </mat-select>
+
+
+                    <mat-error *ngIf="city?.touched &&city?.invalid" class="text-danger" class="text-danger">
+                        <small *ngIf="city?.errors?.['required']">{{ 'CITY' | translate }} {{ 'IS REQUIRED' |
+                            translate }}</small>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width-input">
+                    <input matInput placeholder="{{ 'STREET' | translate }}" type="text" class="form-control"
+                        formControlName="street" [class.is-invalid]="street?.touched &&street?.invalid" required>
+
+                    <mat-error *ngIf="street?.touched &&street?.invalid" class="text-danger">
+                        <small *ngIf="street?.errors?.['required']">{{ 'STREET' | translate }} {{ 'IS REQUIRED'
+                            | translate }}</small>
+                        <small *ngIf="street?.errors?.['maxlength']" class="text-danger">{{ 'THIS FIELD' |
+                            translate }} {{ 'MUST BE' | translate }} {{ 'LESS THAN' | translate }} 50
+                            {{ 'CHARACTERS' | translate }}</small>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 me-2" [disabled]="!PickupPointForm.valid">{{
+                'CONFIRM' | translate }}</button>
+
+            <button type="button" class="btn btn-default w-100 ms-2" (click)="Cancel()">{{ 'CANCEL' |
+                translate }}</button>
+        </form>
+    </mat-card>
+</div>
+
+<div class="alert alert-success mb-5" [hidden]="!shipmentCreated">
+    <strong>{{ 'SUCCESS' | translate }}!</strong> {{ 'NEW SHIPMENT PLACED SUCCESSFULLY' | translate }}.
+</div>
